@@ -147,8 +147,8 @@ io.on('connection', function (socket) {
 	this.socket		= socket;
 	var webSocket	= this.socket;
 	console.log('_____________________');
-	console.log("Socket conection")
-	webSocket.emit('checkConnection', { result: 'Web Socket OK' }); // Listen to test conection
+	console.log("Socket connection")
+	webSocket.emit('checkConnection', { result: 'Web Socket OK' });
 });
 // ******************************************
 //				Express Setup
