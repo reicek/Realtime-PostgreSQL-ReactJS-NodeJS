@@ -139,17 +139,6 @@ pgClient.on('notification', function(data) {
 	console.log('Change notification');
 	io.emit("change");
 });
-
-// ******************************************
-//		Socket.IO
-// ******************************************
-io.on('connection', function (socket) {
-	this.socket		= socket;
-	var webSocket	= this.socket;
-	console.log('_____________________');
-	console.log("Socket connection")
-	webSocket.emit('checkConnection', { result: 'Web Socket OK' });
-});
 // ******************************************
 //				Express Setup
 // ******************************************
