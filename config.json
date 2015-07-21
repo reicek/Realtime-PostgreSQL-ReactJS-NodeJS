@@ -5,7 +5,7 @@
 	"postgres": {
 		"db"       : "postgres",
 		"user"     : "postgres",
-		"password" : "zero15",
+		"password" : "",
 		"host"     : "localhost"
 	}
 }
