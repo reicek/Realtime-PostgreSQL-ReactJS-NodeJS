@@ -1,0 +1,36 @@
+input
+	text-align			center
+	padding				0.2em
+	margin				1em
+	box-shadow			0 0.1em 0.1em #777 , inset 0 0 0.1em #777
+	border-radius		0.5em
+	border-style		none
+	transition			all 0.3s
+	
+	&:hover
+		border-style		none
+		box-shadow			0 0.2em 0.5em #555 , inset 0 0 0.1em #777
+		
+	&:focus
+		outline				0
+		border-style		none
+		box-shadow			0 0.2em 0.5em #555 , inset 0 0 0.1em #777
+	
+	&.fav
+		width				2em
+		height				2em
+		background-color	green
+		border-radius		50%
+		margin-left			auto
+		transition			0.5s
+		cursor				pointer
+		
+		&:hover
+			box-shadow			0 0.2em 0.3em #555 , inset 0 0 0.1em #555
+		
+		&::-webkit-input-placeholder
+			color				#fff
+		&::-moz-input-placeholder
+			color				#fff
+		&:-ms-input-placeholder
+			color				#fff
