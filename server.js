@@ -6,146 +6,143 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
  **/
 // ******************************************
-//			Import configurations
+//          Import configurations
 // ******************************************
-var config				= require('./config.json');
+var config           = require('./config.json');
 // ******************************************
-//		Install NodeJS Dependencies
+//        Install NodeJS Dependencies
 // ******************************************
 // Express
-var express				= require('express');
-var app					= express();
+var express          = require('express');
+var app              = express();
 // Serve-Static 
-var serveStatic			= require('serve-static');
+var serveStatic      = require('serve-static');
 // Body-Parser
-var bodyParser			= require('body-parser');
-// Multer
-var multer				= require('multer');
+var bodyParser       = require('body-parser');
 // Socket Server
-var server				= require('http').Server(app);
+var server           = require('http').Server(app);
 // Socket.IO
-var io					= require('socket.io')(server);
+var io               = require('socket.io')(server);
 // PostgreSQL
-var massive				= require("massive");
-var pg					= require ("pg");
+var massive          = require("massive");
+var pg               = require ("pg");
 // ******************************************
-//					Initialize
+//                  Initialize
 // ******************************************
-var startExpress		= function() {
-    server.listen(config.express.port);
-	db = app.get('db');
-	console.log('_____________________');
-	console.log('HTTP and API server online')
-    console.log('Listening on port '+config.express.port);
-	console.log('_____________________');
+var startExpress     = function() {
+   server.listen(config.express.port);
+   db = app.get('db');
+   console.log('_____________________');
+   console.log('HTTP and API server online')
+   console.log('Listening on port '+config.express.port);
+   console.log('_____________________');
 }
-var initialize 			= function() {
-	startExpress()
-}
-// ******************************************
-//					API
-// ******************************************
-// ------------------------------------------
-//			Send back a 500 error
-// ------------------------------------------
-var handleError			= function(res) {
-    return function(err){
-		console.log(err)
-		res.send(500,{error: err.message});
-	}
-}
-// ------------------------------------------
-//			Initialize demo table
-// ------------------------------------------
-var loadDemoData		= function() {
-	console.log('_____________________');
-	console.log('Initialize demo table');
-	var newDoc = {data:[
-		{
-			"row": "Leer la documentación"
-		},
-		{
-			"row": "Completar Tutoriales"
-		},
-		{
-			"row": "Crear un Demo"
-		},
-		{
-			"row": "Escribir sobre lo que aprendiste"
-		}
-	]};
-	db.saveDoc("steps", newDoc, function(err,response){ // "steps" table is created on the fly
-		if (err) {
-			handleError(err)
-		};
-		console.log(response)
-	});
-}
-// ------------------------------------------
-//				Retrieve all elements
-// ------------------------------------------
-var list				= function(request, res, next) {
-	console.log('_____________________');
-	console.log('API - list/list');
-	if(!db.steps){
-		loadDemoData();
-		return
-	};
-	db.steps.findDoc(1, function(err,doc){
-		if (err) {
-			handleError(err)
-		};
-		console.log(doc.data);
-		res.json({ data: doc.data }); 
-	});
-}
-// ------------------------------------------
-//	Insert an element on an existing object
-// ------------------------------------------
-var update					= function(request, res, next) {
-	console.log('_____________________');
-	console.log('API - update');
-	var newDoc = request.body.data;
-//	console.log(newDoc)
-	db.steps.saveDoc({id:1,data:newDoc}, function(err,response){
-		if (err) {
-			handleError(err)
-		};
-		console.log(response)
-		res.json({ data: response }); 
-		pgClient.query('NOTIFY "changes"');
-	});
-//	console.log(object)
-}
-// ------------------------------------------
-//		Sends a notification to all clients
-// ------------------------------------------
-var notify					= function (request,res,next) {
-	console.log('_____________________');
-	console.log('Forced change notification');
-	io.emit("change");
+var initialize       = function() {
+   startExpress()
 }
 // ******************************************
-//					PostgreSQL
+//                      API
 // ******************************************
-var connectionString	= "postgres://"+config.postgres.user+":"+config.postgres.password+"@"+config.postgres.host+"/"+config.postgres.db;
-var massiveInstance		= massive.connectSync({connectionString : connectionString});
+// ------------------------------------------
+//             Send back a 500 error
+// ------------------------------------------
+var handleError      = function(res) {
+   return function(err){
+      console.log(err)
+      res.send(500,{error: err.message});
+   }
+}
+// ------------------------------------------
+//          Initialize demo table
+// ------------------------------------------
+var loadDemoData     = function() {
+   console.log('_____________________');
+   console.log('Initialize demo table');
+   var newDoc = {data:[
+      {
+         "row": "Leer la documentación"
+      },
+      {
+         "row": "Completar Tutoriales"
+      },
+      {
+         "row": "Crear un Demo"
+      },
+      {
+         "row": "Escribir sobre lo que aprendiste"
+      }
+   ]};
+   db.saveDoc("steps", newDoc, function(err,response){ // "steps" table is created on the fly
+      if (err) {
+         handleError(err)
+      };
+      console.log(response)
+   });
+}
+// ------------------------------------------
+//          Retrieve all elements
+// ------------------------------------------
+var list             = function(request, res, next) {
+   console.log('_____________________');
+   console.log('API - list/list');
+   if(!db.steps){
+      loadDemoData();
+      return
+   };
+   db.steps.findDoc(1, function(err,doc){
+      if (err) {
+         handleError(err)
+      };
+      console.log(doc.data);
+      res.json({ data: doc.data }); 
+   });
+}
+// ------------------------------------------
+//  Insert an element on an existing object
+// ------------------------------------------
+var update           = function(request, res, next) {
+   console.log('_____________________');
+   console.log('API - update');
+   var newDoc = request.body.data;
+// console.log(newDoc)
+   db.steps.saveDoc({id:1,data:newDoc}, function(err,response){
+      if (err) {
+         handleError(err)
+      };
+      console.log(response)
+      res.json({ data: response }); 
+      pgClient.query('NOTIFY "changes"');
+   });
+// console.log(object)
+}
+// ------------------------------------------
+// Sends a notification to all clients
+// ------------------------------------------
+var notify           = function (request,res,next) {
+   console.log('_____________________');
+   console.log('Forced change notification');
+   io.emit("change");
+}
+// ******************************************
+//                PostgreSQL
+// ******************************************
+var connectionString = "postgres://"+config.postgres.user+":"+config.postgres.password+"@"+config.postgres.host+"/"+config.postgres.db;
+var massiveInstance  = massive.connectSync({connectionString : connectionString});
 var db;
-var pgClient = new pg.Client(connectionString);
+var pgClient         = new pg.Client(connectionString);
 pgClient.connect();
 pgClient.query('LISTEN "changes"');
 pgClient.on('notification', function(data) {
-	console.log('_____________________');
-	console.log('Change notification');
-	io.emit("change");
+   console.log('_____________________');
+   console.log('Change notification');
+   io.emit("change");
 });
 // ******************************************
-//				Express Setup
+//             Express Setup
 // ******************************************
 // Data parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer());
 // Define API routes
 app.route('/api/list').get(list);
 app.route('/api/update').post(update);
