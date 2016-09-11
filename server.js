@@ -60,16 +60,16 @@ var loadDemoData     = function() {
    console.log('Initialize demo table');
    var newDoc = {data:[
       {
-         "row": "Leer la documentación"
+         "row": "Read the documentation"
       },
       {
-         "row": "Completar Tutoriales"
+         "row": "Complete the tutorials"
       },
       {
-         "row": "Crear un Demo"
+         "row": "Write a demo app"
       },
       {
-         "row": "Escribir sobre lo que aprendiste"
+         "row": "Write an article"
       }
    ]};
    db.saveDoc("steps", newDoc, function(err,response){ // "steps" table is created on the fly
@@ -110,7 +110,7 @@ var update           = function(request, res, next) {
          handleError(err)
       };
       console.log(response)
-      res.json({ data: response }); 
+      res.json({ data: response });
       pgClient.query('NOTIFY "changes"');
    });
 // console.log(object)

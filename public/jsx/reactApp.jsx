@@ -39,7 +39,7 @@ var SimpleFilterableList   = React.createClass({
          userInput: "",
          simpleList: [
             {
-               row: 'cargando ...'
+               row: 'loading...'
             }
          ]
       };
@@ -54,7 +54,7 @@ var SimpleFilterableList   = React.createClass({
       console.log('_________________');
       console.log('Convertig fav to input');
       document.getElementById("newElement").className    = '';
-      document.getElementById("newElement").placeholder  = 'Agregar nuevo paso...';
+      document.getElementById("newElement").placeholder  = 'Add new step...';
    },
    sendNewElement: function(key){
       if (key.key == "Enter"){
@@ -87,7 +87,7 @@ var SimpleFilterableList   = React.createClass({
             <input
                id          = 'userInput'
                type        = 'text'	
-               placeholder = 'Filtrar...'	
+               placeholder = 'Filter list...'	
                onChange    = {this.updateUserInput}>
             </input>
             <SimpleList	
@@ -109,7 +109,7 @@ var SimpleList             = React.createClass({
    render: function() {
       return (
          <span>
-            <p><strong>Pasos para dominar un nuevo lenguaje de programación:</strong></p>
+            <p><strong>Steps to master a new programming language:</strong></p>
             <SimpleListRow 
                simpleList  = {this.props.simpleList} 
                userInput   = {this.props.userInput}/>
