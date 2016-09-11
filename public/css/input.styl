@@ -3,17 +3,16 @@ input
    text-align        center
    padding           0.2em
    margin            1em
-   box-shadow        0 0.1em 0.1em #777 , inset 0 0 0.1em #777
    border-radius     0.5em
    border-style      none
-   transition        all 0.3s
+   transition        all 0.3s cubic-bezier(.25,.8,.25,1)
    &:hover
       border-style      none
-      box-shadow        0 0.2em 0.5em #555 , inset 0 0 0.1em #777
+      box-shadow        0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
    &:focus
       outline           0
       border-style      none
-      box-shadow        0 0.2em 0.5em #555 , inset 0 0 0.1em #777
+      box-shadow        0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
    &.fav
       width             2em
       height            2em
@@ -23,7 +22,7 @@ input
       transition        0.5s
       cursor            pointer
       &:hover
-         box-shadow        0 0.2em 0.3em #555 , inset 0 0 0.1em #555
+         box-shadow        0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
       &::-webkit-input-placeholder
          color             #fff
       &::-moz-input-placeholder
