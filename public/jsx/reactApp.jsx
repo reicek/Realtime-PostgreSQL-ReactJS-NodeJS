@@ -48,7 +48,7 @@ var SimpleFilterableList   = React.createClass({
       console.log('_________________');
       console.log('User search input:');
       console.log(input.target.value);
-      this.setState({userInput: input.target.value});
+      instance.setState({userInput: input.target.value});
    },
    favToInput: function(){
       console.log('_________________');
@@ -66,18 +66,16 @@ var SimpleFilterableList   = React.createClass({
          dataArray.push(newObject);
          console.log(dataArray);
          $.ajax({
-            url: "/api/update",
-            type: "post",
-            data: {"data":dataArray}
-         }).done(function(response){
-//          console.log(response.data)
-            downloadData();
+            url   : "/api/update",
+            type  : "post",
+            data  : {"data":dataArray}
+         })
+         .done(function(response){
             document.getElementById('newElement').value        = '';
             document.getElementById("newElement").className    = 'fav';
             document.getElementById("newElement").placeholder  = "+";
             document.getElementById('newElement').disabled     = false;
             document.getElementById("userInput").focus();
-            console.log('_________________');
          });
       };
    },

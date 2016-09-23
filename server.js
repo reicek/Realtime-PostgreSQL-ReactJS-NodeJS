@@ -107,11 +107,11 @@ var update           = function(request, res, next) {
 // console.log(newDoc)
    db.steps.saveDoc({id:1,data:newDoc}, function(err,response){
       if (err) {
-         handleError(err)
-      };
-      console.log(response)
-      res.json({ data: response });
-      pgClient.query('NOTIFY "changes"');
+         handleError(err);
+      } else {
+         console.log(response),
+         pgClient.query('NOTIFY "changes"');
+      }
    });
 // console.log(object)
 }
