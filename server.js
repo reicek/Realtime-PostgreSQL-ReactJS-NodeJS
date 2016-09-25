@@ -111,6 +111,7 @@ var update           = function(request, res, next) {
       } else {
          console.log(response),
          pgClient.query('NOTIFY "changes"');
+         res.send('200 OK');
       }
    });
 // console.log(object)
