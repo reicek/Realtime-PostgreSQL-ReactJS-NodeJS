@@ -1,7 +1,8 @@
 /**
- * server.js - NodeJS Restful API for PostgreSQL
- * Original work Copyright (c) 2015 Cesar Anton Dorantes @reicek, for Platzi.com/blog
- * Modified work Copyright (c) 2016 Cesar Anton Dorantes @reicek
+ * @name    server.js - NodeJS Restful API for PostgreSQL
+ * @author  Original work Copyright (c) 2015 Cesar Anton Dorantes @reicek, for Platzi.com/blog
+ *          Modified work Copyright (c) 2016 Cesar Anton Dorantes @reicek
+ * @license 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
  * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
